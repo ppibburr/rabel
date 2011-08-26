@@ -5,17 +5,17 @@
   matt mesanko (c) 2011 <tulnor@linuxwaves.com>
   
 ## Synopsis
-  require 'abel'
+    require 'abel'
   
-  comm = ABEL::CommObject.new('192.1.168.20')
+    comm = ABEL::CommObject.new('192.1.168.20')
   
-  comm.attach
+    comm.attach
   
-  if comm.ok?
+    if comm.ok?
   
-    comm.read_integer("n7",0) #=> 1979 (or whatever)
+      comm.read_integer("n7",0) #=> 1979 (or whatever)
   
-  end 
+    end 
   
 ## Features
   Read/Write data to SLC5/05 proccessors
