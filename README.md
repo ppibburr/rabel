@@ -8,9 +8,13 @@
   require 'abel'
   
   comm = ABEL::CommObject.new('192.1.168.20')
+  
   comm.attach
+  
   if comm.ok?
+  
     comm.read_integer("n7",0) #=> 1979 (or whatever)
+  
   end 
   
 ## Features
