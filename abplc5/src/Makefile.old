@@ -1,0 +1,82 @@
+
+AR=ar crs
+RAN=ranlib
+CC=gcc 
+LD=gcc 
+RM=rm -f
+INSTALL=install
+srcdir = src
+libdir = lib
+
+INCLUDE = -I. -I.. -I../$(srcdir) -I../$(libdir)
+CFLAGS=-Wall -O2 
+LFLAGS= -L../lib -labplc5
+LIBSUBDIRS = lib
+UTILSUBDIRS = src
+
+all utils:  abread abstat abwrite abupload stress absetmode section name
+
+name:   name.o
+	$(CC) name.o $(LFLAGS) -o ../name
+
+name.o:   name.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c name.c
+
+section:  section.o
+	$(CC) section.o $(LFLAGS) -o ../section
+
+section.o:  section.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c section.c
+
+abread:   abread.o 
+	$(CC)  abread.o $(LFLAGS)  -o ../abread
+
+abread.o: abread.c 
+	$(CC) $(INCLUDE) $(CFLAGS) -c abread.c
+
+abstat:    abstat.o 
+	$(CC)  abstat.o $(LFLAGS)  -o ../abstat
+
+abstat.o:   abstat.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c abstat.c
+
+abwrite:  abwrite.o
+	$(CC) abwrite.o $(LFLAGS)  -o ../abwrite
+
+abwrite.o:   abwrite.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c abwrite.c
+
+abupload:    abupload.o
+	$(CC) abupload.o $(LFLAGS) -o ../abupload
+
+abupload.o:  abupload.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c abupload.c
+
+stress:     stress.o
+	$(CC) stress.o $(LFLAGS) -o ../stress
+
+stress.o:   stress.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c stress.c
+
+absetmode:    absetmode.o
+	$(CC) absetmode.o $(LFLAGS) -o ../absetmode
+
+absetmode.o:    absetmode.c
+	$(CC) $(INCLUDE) $(CFLAGS) -c absetmode.c
+
+
+
+install:
+	$(INSTALL) -m 755 $(MTARGET) /usr/local/bin
+
+clean:
+	$(RM) *~ core *.o 
+
+
+dist:  clean
+	$(RM) /abplc5.tar
+	tar -c -f /abplc5.tar /abplc5
+	gzip -c /abplc5.tar > /abplc5.tar.gz
+	$(RM) /abplc5.tar
+	chown ron /abplc5.tar.gz
+	chgrp users /abplc5.tar.gz 
